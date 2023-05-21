@@ -1,3 +1,4 @@
+// create custom middleware to handle errors throughout the life of the application
 const notFound = (req, res, next) => {
   const error = new Error(`Not found- ${req.originalUrl}`);
   res.status(404);
