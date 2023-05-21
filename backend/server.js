@@ -20,6 +20,10 @@ connectDB();
 // set express to app
 const app = express();
 
+// these allow raw data of json to be sent and to use form data
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 // use express application to initiate browser routes
 app.use("/api/users", userRoutes);
 
