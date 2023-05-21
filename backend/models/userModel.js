@@ -34,7 +34,7 @@ userSchema.pre("save", async function (next) {
   this.password = await bcrypt.hash(this.password, salt); // give this password from the user a hashed pass for the DB
 });
 
-userSchema.methods.matchPasswords = async function (enteredPassword) {
+userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 }; // compares the user entered password with the hashed password
 

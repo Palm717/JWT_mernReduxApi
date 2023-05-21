@@ -13,7 +13,8 @@ const authUser = asyncHandler(async (req, res) => {
 
   const user = await User.findOne({ email });
 
-  if (user) {
+  if (user && (await user.matchPassword(password))) {
+    // checks if email and password match
     // generate a token and set it as a cookie in the res obj
     generateToken(res, user._id);
     res.status(201).json({
@@ -69,7 +70,13 @@ const registerUser = asyncHandler(async (req, res) => {
 // @acess Public
 
 const logoutUser = asyncHandler(async (req, res) => {
-  res.status(200).json({ msg: "Logout User" });
+  res.cookie("jwt", "", {
+    // name the cookie (<any>) then pass an empty string
+    httpOnly: true,
+    expires: new Date(0), // expires immediately
+  });
+
+  res.status(200).json({ msg: "User logged out" });
 });
 
 // @desc Get user profile
