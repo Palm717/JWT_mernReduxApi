@@ -7,7 +7,25 @@ import User from "../models/userModel.js";
 // @acess Public
 
 const authUser = asyncHandler(async (req, res) => {
-  res.status(200).json({ msg: "Auth User" });
+  const { email, password } = req.body;
+  console.log(email);
+  console.log(password);
+
+  const user = await User.findOne({ email });
+
+  if (user) {
+    // generate a token and set it as a cookie in the res obj
+    generateToken(res, user._id);
+    res.status(201).json({
+      // a good code showing creation
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+    });
+  } else {
+    res.status(401);
+    throw new Error("Invalid email or password");
+  }
 });
 
 // @desc Register new user
