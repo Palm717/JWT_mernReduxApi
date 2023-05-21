@@ -2,6 +2,7 @@
 import express from "express"; // express routing package
 import dotenv from "dotenv"; // enviornment package
 dotenv.config(); // run the enviornment function
+import cookieParser from "cookie-parser";
 
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js"; // created error handling from middlewar folder
 
@@ -23,6 +24,8 @@ const app = express();
 // these allow raw data of json to be sent and to use form data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(cookieParser());
 
 // use express application to initiate browser routes
 app.use("/api/users", userRoutes);
