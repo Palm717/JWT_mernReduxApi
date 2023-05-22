@@ -3,7 +3,7 @@
 overview of a tutorial project that demonstrates the implementation of a JWT (JSON Web Token) authentication service. The project includes features such as login, registration, logout, private routes, and profile updates.
 
 - Brad Traversy @traversymedia
-  [Link Text](https://www.youtube.com/watch?v=R4AhvYORZRY)
+  [YoutTube Tutorial](https://www.youtube.com/watch?v=R4AhvYORZRY)
 
 ## Prerequisites
 
