@@ -98,23 +98,30 @@ const getUserProfile = asyncHandler(async (req, res) => {
 // @acess Private
 
 const updateUserProfile = asyncHandler(async (req, res) => {
+  // finding user by id
   const user = await User.findById(req.user._id);
 
   if (user) {
+    // update user name / email
     user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
 
+    // update password if password is given in body
     if (req.body.password) {
       user.password = req.body.password;
     }
+
+    // save the updated user to db
     const updatedUser = await user.save();
 
+    // return successful response with updated user stats
     res.status(200).json({
       _id: updatedUser._id,
       name: updatedUser.name,
       email: updatedUser.email,
     });
   } else {
+    // if no user throw an error
     res.status(404);
     throw new Error(`User not found`);
   }
