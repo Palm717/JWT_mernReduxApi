@@ -7,8 +7,8 @@ import { useLoginMutation } from '../slices/usersApiSlice'
 import { setCredentials } from '../slices/authSlice'
 
 const LoginScreen = () => {
-    const { email, setEmail } = useState();
-    const { password, setPassword} = useState();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -25,7 +25,14 @@ const LoginScreen = () => {
 
     const submitHandler = async (e) => {
         e.preventDefault();
-        console.log('submit')
+        try {
+            const res = await login({ email, password }).unwrap();
+            dispatch(setCredentials({...res}))
+            navigate('/')
+
+        } catch (err) {
+            console.log(err?.data?.message || err.error)
+        }
     }
 
     return (
